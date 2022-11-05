@@ -14,17 +14,18 @@ export function Cart(props){
     //style  
     const ulStyle ={
         listStyleType: "none",
-        display: "inline-block"
+
     }
     const liStyle ={
-   
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between"
     }
     return (
         <div>
             <h1>Cart</h1>
-
             <ul style={ulStyle}>{cartArray.map((itemName)=>{
-                return <li style={liStyle}>
+                return <li key={itemName} style={liStyle}>
                     <h3>{itemName}</h3> 
                     {/*<h3>quantity: {cartObject[itemName].quantity} </h3>*/}
                     <select name={itemName} onChange={(e)=>{quantityOnChangeHandler(itemName, e.target.value)}}>
@@ -36,7 +37,6 @@ export function Cart(props){
                 </li>
             })}</ul>
             
-            <h2></h2>
         </div>
     )
 }

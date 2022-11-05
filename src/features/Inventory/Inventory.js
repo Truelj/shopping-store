@@ -1,63 +1,104 @@
 import React, { useEffect, useState } from "react";
+import { convertCurrency } from "../../app/helper/currency";
 import sampleImage from './img/inventory1.png';
 
 export function Inventory(props){
     
     const [inventory, setInventory] = useState([]);
-
     //load inventory
     const loadData = ()=>{
         //fetch data resource
         // mock data
-        const data= [
+        const dataUSD = [
             { name: 'Hat', img: '', price: 15.99 },
             { name: 'T-Shirt', img: '', price: 18.99 },
             { name: 'Hoodie', img: '', price: 49.99 },
         ]
-        setInventory(data);
+        //convert currency
+        switch(props.currency) {   
+            case 'EUR':
+                const dataEUR = dataUSD.map((item)=>{
+                    return {...item, price: (item.price * 1).toFixed(2)}
+                });
+                dataEUR.forEach((data)=>{console.log(`€${data.price}`)});
+                inventory.data = dataEUR;
+                setInventory(dataEUR);
+                break;
+            case 'CAD':
+                const dataCAD = dataUSD.map((item)=>{
+                    return {...item, price: (item.price * 1.35).toFixed(2)}
+                });
+                dataCAD.forEach((data)=>{console.log(`$${data.price}`)});
+                inventory.data=dataCAD;
+                setInventory(dataCAD);
+                break;
+            default:
+                dataUSD.forEach((data)=>{console.log(`$${data.price}`)});
+                inventory.data=dataUSD;
+                setInventory(dataUSD);      
+        }
+        
     }
+
     useEffect(()=>{
         loadData();
-    }, []);
+        //check inventory price
+        console.log("check inventory price...")
+        inventory.data.forEach((item)=>{console.log(item.price)});
+        props.updateInvetory(inventory.data);
+    }, [props.currency]);
     
     const addToCart = (e) =>{
         //console.log(e.target.value);
         const name = e.target.value;
         const price = inventory.filter((item)=>(item.name === name))[0].price;
-        console.log({
-            name: name,
-            price: price
-        })
         props.addToCart({
             name: name,
             price: price
         });
         
     }
+    let currencySymbol;
+    switch (props.currency){
+        case 'CAD':
+            currencySymbol = '$';
+            break;
+        case 'EUR':
+            currencySymbol = '€';
+            break;
+        default:
+            currencySymbol = '$'
+    }
     //styles
     const ulStyle ={
         listStyleType: "none",
-        display: "inline-block"
+        display: "flex",
+        justifyContent: "space-between",
+        flexWrap: "wrap"
     }
     const liStyle ={
-        display: "inline-block",
-        marginLeft: 20,
-        marginRight: 20
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center"
     }
     const buttonStyle ={
         border: "none",
         backgroundColor: "white"
     }
-
+    
+    
+   
     return (
         <div>
             <h1>Inventory</h1>
             <ul style={ulStyle} >
-                {inventory.map((item)=>{ return <li style={liStyle}>
+                {inventory.map((item)=>{ return <li key={item.name} style={liStyle}>
                     <img src={sampleImage} style={{width:200}}></img>
-                    <h2>{item.name}</h2>
-                    <h2>{item.price}</h2>
-                    <button name="name" value={item.name} onClick={addToCart} style={buttonStyle}>add to cart</button>
+                    <div className='description'>
+                        <h3>{item.name}</h3>
+                        <h3>{`${currencySymbol} ${item.price}`}</h3>
+                        <button name="name" value={item.name} onClick={addToCart} style={buttonStyle}>add to cart</button>
+                    </div>
                 </li>})}
             </ul>
 

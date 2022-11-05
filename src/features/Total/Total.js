@@ -2,7 +2,17 @@ import React from "react";
 
 export function Total(props){
     const cartObject = props.cartObject;
-    
+    let currencySymbol;
+    switch (props.currency){
+        case 'CAD':
+            currencySymbol = '$';
+            break;
+        case 'EUR':
+            currencySymbol = '€';
+            break;
+        default:
+            currencySymbol = '$'
+    }
     //get total
     let total = 0;
     for(const item in cartObject){
@@ -11,7 +21,7 @@ export function Total(props){
     
     return (
         <div>
-            Total: {total.toFixed(2)} 
+            Total: {`${currencySymbol}${total.toFixed(2)}`} 
         </div>
     )
 };
