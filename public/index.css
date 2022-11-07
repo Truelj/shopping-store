@@ -1,0 +1,39 @@
+/*define custom properties */
+/*Store Styles */
+:root {
+  --black: #131b3c;
+  --purple: #7000ec;
+  --border-radius: 4px;
+}
+
+#currency-filters-container {
+  margin-bottom: 24px;
+}
+
+#currency-filters-container h3 {
+  margin-bottom: 4px;
+}
+
+.currency-button {
+  background: white;
+  border: 1px solid var(--black);
+  padding: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.currency-button:first-of-type {
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+.currency-button:last-of-type {
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.currency-button:active {
+  background: var(--black);
+  color: white;
+}
+

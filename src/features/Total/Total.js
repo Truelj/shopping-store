@@ -1,9 +1,8 @@
 import React from "react";
 
-export function Total(props){
-    const cartObject = props.cartObject;
+export function Total({cartObject, currency}){
     let currencySymbol;
-    switch (props.currency){
+    switch (currency){
         case 'CAD':
             currencySymbol = '$';
             break;

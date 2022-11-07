@@ -1,25 +1,32 @@
 import React from "react";
+const currencyData = ['USD', 'EUR', 'CAD'];
 
-export function Currency(props){
-    const ulStyle={
-        listStyleType: "none",
-        display: "flex",
-        alignItems: "center"
-    };
+export function Currency({changeCurrency}){
     
-    const currencyChangeHandler=(e)=>{
+    const onClickHandler=(currency)=>{
         //change currency
-        console.log(e.target.value);
-        const currency = e.target.value;
-        props.changeCurrency(currency);
+        console.log("Currency: change currency to " + currency);
+        changeCurrency(currency);
     }
     return (
-        <nav>
-            <ul style={ulStyle}>
-                <li key='USED'><button value='USD' onClick={currencyChangeHandler}> USD</button></li>
-                <li key='EUR'><button value='EUR' onClick={currencyChangeHandler}> EUR</button></li>
-                <li key='CAD'><button value='CAD' onClick={currencyChangeHandler}> CAD</button></li>
-            </ul>
-        </nav>
+        <div id='currency-filters-container'>
+            <h3>Choose a currency</h3>
+            <nav>
+            {currencyData.map((currency)=>(createCurrencyButton(currency)))}
+            </nav>
+        </div>
+        
+        
     );
+    function createCurrencyButton(currency){
+        return (
+            <button 
+                className='currency-button'
+                key={currency}
+                onClick={()=> onClickHandler(currency)}   
+            >
+              {currency}  
+            </button>
+        )
+    }
 }

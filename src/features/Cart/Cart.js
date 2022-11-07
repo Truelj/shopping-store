@@ -1,14 +1,13 @@
 import React from "react";
 
-export function Cart(props){
-    const cartObject = props.cartObject; 
-
+export function Cart({cartObject, updateQuantityInCart}){
     //extract item names into array
     const cartArray = Object.keys(cartObject);
 
     const quantityOnChangeHandler = (itemName, quantity) =>{
+        console.log("Cart: update quantity in cart...");
         console.log(`name: ${itemName}, quantity: ${quantity}`);
-        props.updateCart(itemName, quantity);
+        updateQuantityInCart(itemName, quantity);
     }
 
     //style  

@@ -7,34 +7,29 @@ import { Total } from '../features/Total/Total';
 import './App.css';
 
 function App() {  
-  const [inventory, setInventory] = useState([]);
   const [cartObject, setCartObject] = useState(null);
   const [currency, setCurrency] = useState('USD');
 
   const showCart = cartObject === null? false:true;
-  const addToCart = (itemObject)=>{
+  const addItemToCart = (itemObject)=>{
     setCartObject((prev)=>{
       return {...prev, [itemObject.name]: {price: itemObject.price, quantity: 1}}
     });
     
   }
-  const updateCart = (name, quantity)=>{
+  const updateQuantityInCart = (name, quantity)=>{
     //update cartObject;
     setCartObject((prev) => {
       return {...prev, 
         [name]: {"price": prev[name].price, "quantity": quantity}};
     })
   };
-   
-  const changeCurrency = (currency) =>{
-    setCurrency(currency);
-  }
-
-  const updateInvetory = (newInventory) =>{
-    setInventory(newInventory);
-    //update Cart because the price has been changed with the changed currency
-    console.log("App: updating cart...");
+  
+  
+  const updatePriceInCart = (newInventory) =>{
     if(cartObject !== null){
+      //update Cart because the price has been changed with the changed currency
+      console.log("App: updating cart..."); 
       setCartObject((prev)=>{
         for(const itemName in prev){
           const inventoryItem = newInventory.filter((item)=>{return item.name === itemName})[0];
@@ -46,7 +41,10 @@ function App() {
     }
 
   };
-
+  
+  const changeCurrency = (currency) =>{
+    setCurrency(currency);
+  }
 
 
   return (
@@ -55,10 +53,10 @@ function App() {
         <Currency changeCurrency={changeCurrency}></Currency>
       </div>
       <div className='Inventory'>
-        <Inventory addToCart={addToCart} currency={currency} updateInvetory={updateInvetory} ></Inventory>
+        <Inventory addItemToCart={addItemToCart} currency={currency} updatePriceInCart={updatePriceInCart} ></Inventory>
       </div>
       <div className='Cart' style={{backgroundColor:"grey"}}>
-        {showCart && <Cart cartObject={cartObject} updateCart={updateCart} ></Cart>}
+        {showCart && <Cart cartObject={cartObject} updateQuantityInCart={updateQuantityInCart} ></Cart>}
       </div>
       <div className='Total' style={{backgroundColor:"rebeccapurple"}}>
         <Total cartObject={cartObject} currency={currency}></Total>
