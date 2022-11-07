@@ -33,16 +33,19 @@ function App() {
   const updateInvetory = (newInventory) =>{
     setInventory(newInventory);
     //update Cart because the price has been changed with the changed currency
-    console.log("updating cart...");
-    setCartObject((prev)=>{
-      for(const itemName in prev){
-        const inventoryItem = newInventory.filter((item)=>{return item.name === itemName})[0];
-        prev[itemName].price = inventoryItem.price;
-        console.log(itemName + "/new price : " + prev[itemName].price);
-      }
-      return prev;
-    })
-  }
+    console.log("App: updating cart...");
+    if(cartObject !== null){
+      setCartObject((prev)=>{
+        for(const itemName in prev){
+          const inventoryItem = newInventory.filter((item)=>{return item.name === itemName})[0];
+          prev[itemName].price = inventoryItem.price;
+          console.log(itemName + "/new price : " + prev[itemName].price);
+        }
+        return prev;
+      });
+    }
+
+  };
 
 
 

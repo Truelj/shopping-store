@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { convertCurrency } from "../../app/helper/currency";
 import sampleImage from './img/inventory1.png';
 
 export function Inventory(props){
@@ -21,7 +20,6 @@ export function Inventory(props){
                     return {...item, price: (item.price * 1).toFixed(2)}
                 });
                 dataEUR.forEach((data)=>{console.log(`€${data.price}`)});
-                inventory.data = dataEUR;
                 setInventory(dataEUR);
                 break;
             case 'CAD':
@@ -29,12 +27,10 @@ export function Inventory(props){
                     return {...item, price: (item.price * 1.35).toFixed(2)}
                 });
                 dataCAD.forEach((data)=>{console.log(`$${data.price}`)});
-                inventory.data=dataCAD;
                 setInventory(dataCAD);
                 break;
             default:
                 dataUSD.forEach((data)=>{console.log(`$${data.price}`)});
-                inventory.data=dataUSD;
                 setInventory(dataUSD);      
         }
         
@@ -42,11 +38,15 @@ export function Inventory(props){
 
     useEffect(()=>{
         loadData();
-        //check inventory price
-        console.log("check inventory price...")
-        inventory.data.forEach((item)=>{console.log(item.price)});
-        props.updateInvetory(inventory.data);
     }, [props.currency]);
+    
+    useEffect(()=>{
+        //check inventory update
+        console.log("Inventory: check inventory update....")
+        inventory.forEach((item)=>{console.log(item.price)});
+        //send the up-to-dated inventory to app.js
+        props.updateInvetory(inventory);
+    }, [inventory]);
     
     const addToCart = (e) =>{
         //console.log(e.target.value);
