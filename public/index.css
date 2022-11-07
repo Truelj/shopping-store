@@ -15,10 +15,10 @@ body,
   --border-radius: 4px;
 }
 
-/* Style for Total.js */
+/* Style for Currency.js */
 #currency-filters-container {
   margin-bottom: 24px;
-  
+
 }
 
 #currency-filters-container h3 {
@@ -91,4 +91,50 @@ body,
 .add-to-cart-button:hover{
   color: white;
   background: var(--black);
+}
+
+/*style for cart.js */
+.cart-container{
+  padding: 12px 45px;
+  padding-bottom: 24px;
+  background: #f2f2f2;
+  position: sticky;
+  bottom: 0;
+}
+
+.cart-items {
+  padding: 0px;
+}
+
+.cart-items li {
+  list-style: none;
+  font-weight: 700;
+  color: var(--black);
+  display: flex;
+  margin-bottom: 8px;
+  justify-content: space-between;
+}
+
+.cart-items p {
+  margin: 0;
+}
+
+.item-quantity {
+  margin-left: auto;
+  border: 1px solid var(--black);
+  border-radius: var(--border-radius);
+  width: 50px;
+  padding: 2px 4px;
+}
+
+/*style for Total.js */
+.total-value {
+  color: var(--purple);
+  margin-left: auto;
+}
+
+.total {
+  display: flex;
+  margin: 0;
+  font-size: 1.8rem;
 }

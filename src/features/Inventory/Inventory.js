@@ -83,7 +83,7 @@ export function Inventory({addItemToCart, currency, updatePriceInCart }){
                     <img src={sampleImage}></img>
                     <h3>{name}</h3>
                     <h3 className="price" >{`${currencySymbol} ${price}`}</h3>
-                    <button class="add-to-cart-button" value={inventoryItem} onClick={onClickHandler} >add to cart</button>
+                    <button className="add-to-cart-button" value={inventoryItem} onClick={()=>(onClickHandler(inventoryItem))} >add to cart</button>
                 </li>
         )
     }

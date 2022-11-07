@@ -11,31 +11,32 @@ export function Cart({cartObject, updateQuantityInCart}){
     }
 
     //style  
-    const ulStyle ={
-        listStyleType: "none",
-
-    }
-    const liStyle ={
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between"
-    }
+ 
     return (
         <div>
-            <h1>Cart</h1>
-            <ul style={ulStyle}>{cartArray.map((itemName)=>{
-                return <li key={itemName} style={liStyle}>
-                    <h3>{itemName}</h3> 
-                    {/*<h3>quantity: {cartObject[itemName].quantity} </h3>*/}
-                    <select name={itemName} onChange={(e)=>{quantityOnChangeHandler(itemName, e.target.value)}}>
-                        <option value="1" >1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                    
-                </li>
-            })}</ul>
+            <ul className="cart-items">
+                {cartArray.map((name)=>{return createCartItem(name)})}
+            </ul>
             
         </div>
-    )
+    );
+
+    function createCartItem(name){
+        return (
+            <li key={name} >
+                <p>{name}</p> 
+                {/*<h3>quantity: {cartObject[itemName].quantity} </h3>*/}
+                <select 
+                    className="item-quantity"
+                    name={name} 
+                    onChange={(e)=>{quantityOnChangeHandler(name, e.target.value)}}>
+                    <option value="1" >1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                    
+            </li>
+        );
+    }
+    
 }

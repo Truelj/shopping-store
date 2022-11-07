@@ -11,9 +11,8 @@ export function Currency({changeCurrency}){
     return (
         <div id='currency-filters-container'>
             <h3>Choose a currency</h3>
-            <nav>
+
             {currencyData.map((currency)=>(createCurrencyButton(currency)))}
-            </nav>
         </div>
         
         

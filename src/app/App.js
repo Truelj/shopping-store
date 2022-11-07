@@ -48,19 +48,18 @@ function App() {
 
 
   return (
-    <div className="App" style={{backgroundColor: "beige"}}>
-      <div className='Currency' style={{backgroundColor:"rebeccapurple"}}>
+    <div className="App" >
+      <div className='Currency'>
         <Currency changeCurrency={changeCurrency}></Currency>
       </div>
       <div className='Inventory'>
         <Inventory addItemToCart={addItemToCart} currency={currency} updatePriceInCart={updatePriceInCart} ></Inventory>
       </div>
-      <div className='Cart' style={{backgroundColor:"grey"}}>
+      <div className='cart-container'>
         {showCart && <Cart cartObject={cartObject} updateQuantityInCart={updateQuantityInCart} ></Cart>}
-      </div>
-      <div className='Total' style={{backgroundColor:"rebeccapurple"}}>
         <Total cartObject={cartObject} currency={currency}></Total>
       </div>
+      
     </div>
   );
 }

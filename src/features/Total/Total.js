@@ -19,8 +19,10 @@ export function Total({cartObject, currency}){
     }
     
     return (
-        <div>
-            Total: {`${currencySymbol}${total.toFixed(2)}`} 
-        </div>
+        
+        <h3 className="total">Total{"  "}
+            <span className="total-value">{`${currencySymbol}${total.toFixed(2)}`}</span> 
+        </h3>
+        
     )
 };
