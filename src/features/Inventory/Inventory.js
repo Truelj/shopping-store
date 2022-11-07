@@ -48,10 +48,9 @@ export function Inventory({addItemToCart, currency, updatePriceInCart }){
         updatePriceInCart(inventory);
     }, [inventory]);
     
-    const onClickHandler = (e) =>{
-        //console.log(e.target.value);
-        const name = e.target.value;
-        const price = inventory.filter((item)=>(item.name === name))[0].price;
+    const onClickHandler = (inventoryItem) =>{
+        const name = inventoryItem.name;
+        const price = inventoryItem.price;
         addItemToCart({
             name: name,
             price: price
@@ -70,39 +69,22 @@ export function Inventory({addItemToCart, currency, updatePriceInCart }){
         default:
             currencySymbol = '$'
     }
-    //styles
-    const ulStyle ={
-        listStyleType: "none",
-        display: "flex",
-        justifyContent: "space-between",
-        flexWrap: "wrap"
-    }
-    const liStyle ={
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center"
-    }
-    const buttonStyle ={
-        border: "none",
-        backgroundColor: "white"
-    }
-    
-    
+ 
    
     return (
-        <div>
-            <h1>Inventory</h1>
-            <ul style={ulStyle} >
-                {inventory.map((item)=>{ return <li key={item.name} style={liStyle}>
-                    <img src={sampleImage} style={{width:200}}></img>
-                    <div className='description'>
-                        <h3>{item.name}</h3>
-                        <h3>{`${currencySymbol} ${item.price}`}</h3>
-                        <button name="name" value={item.name} onClick={onClickHandler} style={buttonStyle}>add to cart</button>
-                    </div>
-                </li>})}
+            <ul id='inventory-container' >
+                {inventory.map((inventoryItem)=>{ return createInventoryItem(inventoryItem);})}
             </ul>
-
-        </div>
     )
+    function createInventoryItem(inventoryItem){
+        const {name, img, price} = inventoryItem;
+        return (
+                <li key={name} className='inventory-item' >
+                    <img src={sampleImage}></img>
+                    <h3>{name}</h3>
+                    <h3 className="price" >{`${currencySymbol} ${price}`}</h3>
+                    <button class="add-to-cart-button" value={inventoryItem} onClick={onClickHandler} >add to cart</button>
+                </li>
+        )
+    }
 }
