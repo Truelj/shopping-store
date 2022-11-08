@@ -21,4 +21,12 @@ export function getCurrencySymbol(currencyFilter) {
         return '';
     }
   }
-  
+
+  export function getTotalPrice(cartObject){
+    let total = 0;
+    for(const item in cartObject){
+      //calculate the displayed price 
+      total += cartObject[item].quantity * cartObject[item].price;
+  }
+    return total;
+  }

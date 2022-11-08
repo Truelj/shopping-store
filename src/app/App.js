@@ -3,13 +3,12 @@ import { useEffect, useState } from 'react';
 import { Cart } from '../features/Cart/Cart';
 import { Currency } from '../features/Currency/Currency';
 import { Inventory } from '../features/Inventory/Inventory';
-import { Total } from '../features/Total/Total';
 import './App.css';
 import { inventoryData, currenciesData} from '../data';
 
 function App() {  
   const [inventory, setInventory] = useState([]);
-  const [cartObject, setCartObject] = useState(null);
+  const [cartObject, setCartObject] = useState([]);
   const [currency, setCurrency] = useState('USD');
 
   //load inventory
@@ -18,7 +17,6 @@ function App() {
     setInventory(inventoryData);
   },[]);
   
-  const showCart = cartObject === null? false:true;
 
   const addItemToCart = (itemObject)=>{
     setCartObject((prev)=>{
@@ -48,10 +46,9 @@ function App() {
       <div className='Inventory'>
         <Inventory inventory={inventory} addItemToCart={addItemToCart} currencyFilter={currency}></Inventory>
       </div>
-      <div className='cart-container'>
-        {showCart && <Cart cartObject={cartObject} updateQuantityInCart={updateQuantityInCart} ></Cart>}
-        <Total cartObject={cartObject} currencyFilter={currency}></Total>
-      </div>
+   
+        <Cart cartObject={cartObject} updateQuantityInCart={updateQuantityInCart} currencyFilter={currency}></Cart>
+      
       
     </div>
   );

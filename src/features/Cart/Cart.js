@@ -1,6 +1,7 @@
 import React from "react";
+import { calculatePrice,getCurrencySymbol, getTotalPrice } from "../../utilities/utilities";
 
-export function Cart({cartObject, updateQuantityInCart}){
+export function Cart({cartObject, updateQuantityInCart,currencyFilter}){
     //extract item names into array
     const cartArray = Object.keys(cartObject);
 
@@ -10,13 +11,17 @@ export function Cart({cartObject, updateQuantityInCart}){
         updateQuantityInCart(itemName, quantity);
     }
 
-    //style  
- 
+    //get total in dollars
+    const total = getTotalPrice(cartObject);
+    const currencySymbol = getCurrencySymbol(currencyFilter);
     return (
-        <div>
+        <div className='cart-container'>
             <ul className="cart-items">
                 {cartArray.map((name)=>{return createCartItem(name)})}
             </ul>
+            <h3 className="total">Total{"  "}
+            <span className="total-value">{`${currencySymbol}${(calculatePrice(total, currencyFilter))}${currencyFilter}`}</span> 
+        </h3>
             
         </div>
     );
@@ -33,8 +38,7 @@ export function Cart({cartObject, updateQuantityInCart}){
                     <option value="1" >1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
-                </select>
-                    
+                </select>   
             </li>
         );
     }
