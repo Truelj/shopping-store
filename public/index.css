@@ -95,6 +95,7 @@ body,
 
 /*style for cart.js */
 .cart-container{
+  margin: 0 -45px;
   padding: 12px 45px;
   padding-bottom: 24px;
   background: #f2f2f2;

@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Cart } from '../features/Cart/Cart';
 import { Currency } from '../features/Currency/Currency';
 import { Inventory } from '../features/Inventory/Inventory';
@@ -7,10 +7,57 @@ import { Total } from '../features/Total/Total';
 import './App.css';
 
 function App() {  
+  const [inventory, setInventory] = useState([]);
   const [cartObject, setCartObject] = useState(null);
   const [currency, setCurrency] = useState('USD');
 
+  //load inventory
+  const loadData=()=>{
+    //fetch data resource
+    // mock data
+    const dataUSD = [
+        { name: 'Hat', img: '', price: 15.99 },
+        { name: 'T-Shirt', img: '', price: 18.99 },
+        { name: 'Hoodie', img: '', price: 49.99 },
+    ]
+    //convert currency
+    switch(currency) {   
+        case 'EUR':
+            const dataEUR = dataUSD.map((item)=>{
+                return {...item, price: (item.price * 1).toFixed(2)}
+            });
+            //dataEUR.forEach((data)=>{console.log(`€${data.price}`)});
+            setInventory(dataEUR);
+            break;
+        case 'CAD':
+            const dataCAD = dataUSD.map((item)=>{
+                return {...item, price: (item.price * 1.35).toFixed(2)}
+            });
+            //dataCAD.forEach((data)=>{console.log(`$${data.price}`)});
+            setInventory(dataCAD);
+            break;
+        default:
+            //dataUSD.forEach((data)=>{console.log(`$${data.price}`)});
+            setInventory(dataUSD);      
+    }
+    
+  };//end of loadData
+  useEffect(()=>{
+    console.log("App: loading inventory data....")
+    loadData();
+    
+  }, [currency]);
+  
+  useEffect(()=>{
+    //check inventory update
+    console.log("App: check inventory price update....")
+    inventory.forEach((item)=>{console.log(`${currency}${item.price}`)});
+    updatePriceInCart(inventory);
+}, [inventory]);
+
+
   const showCart = cartObject === null? false:true;
+
   const addItemToCart = (itemObject)=>{
     setCartObject((prev)=>{
       return {...prev, [itemObject.name]: {price: itemObject.price, quantity: 1}}
@@ -53,7 +100,7 @@ function App() {
         <Currency changeCurrency={changeCurrency}></Currency>
       </div>
       <div className='Inventory'>
-        <Inventory addItemToCart={addItemToCart} currency={currency} updatePriceInCart={updatePriceInCart} ></Inventory>
+        <Inventory inventory={inventory} addItemToCart={addItemToCart} currency={currency} updatePriceInCart={updatePriceInCart} ></Inventory>
       </div>
       <div className='cart-container'>
         {showCart && <Cart cartObject={cartObject} updateQuantityInCart={updateQuantityInCart} ></Cart>}
