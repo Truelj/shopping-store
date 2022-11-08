@@ -5,6 +5,7 @@ import { Currency } from '../features/Currency/Currency';
 import { Inventory } from '../features/Inventory/Inventory';
 import { Total } from '../features/Total/Total';
 import './App.css';
+import { inventoryData } from '../data';
 
 function App() {  
   const [inventory, setInventory] = useState([]);
@@ -14,13 +15,15 @@ function App() {
   //load inventory
   const loadData=()=>{
     //fetch data resource
-    // mock data
+    /*mock data
     const dataUSD = [
         { name: 'Hat', img: '', price: 15.99 },
         { name: 'T-Shirt', img: '', price: 18.99 },
         { name: 'Hoodie', img: '', price: 49.99 },
     ]
-    //convert currency
+    */
+    const dataUSD = inventoryData;
+    //convert data to align with the current currency
     switch(currency) {   
         case 'EUR':
             const dataEUR = dataUSD.map((item)=>{
@@ -50,7 +53,7 @@ function App() {
   
   useEffect(()=>{
     //check inventory update
-    console.log("App: check inventory price update....")
+    console.log("App: check inventory update....")
     inventory.forEach((item)=>{console.log(`${currency}${item.price}`)});
     updatePriceInCart(inventory);
 }, [inventory]);

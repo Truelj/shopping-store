@@ -36,7 +36,7 @@ export function Inventory({inventory, addItemToCart, currency, updatePriceInCart
         const {name, img, price} = inventoryItem;
         return (
                 <li key={name} className='inventory-item' >
-                    <img src={sampleImage}></img>
+                    <img src={inventoryItem.img}></img>
                     <h3>{name}</h3>
                     <h3 className="price" >{`${currencySymbol} ${price}`}</h3>
                     <button className="add-to-cart-button" value={inventoryItem} onClick={()=>(onClickHandler(inventoryItem))} >add to cart</button>
