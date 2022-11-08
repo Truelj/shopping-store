@@ -1,17 +1,8 @@
 import React from "react";
+import { calculatePrice, getCurrencySymbol } from "../../utilities/utilities";
 
-export function Total({cartObject, currency}){
-    let currencySymbol;
-    switch (currency){
-        case 'CAD':
-            currencySymbol = '$';
-            break;
-        case 'EUR':
-            currencySymbol = '€';
-            break;
-        default:
-            currencySymbol = '$'
-    }
+export function Total({cartObject, currencyFilter}){
+    let currencySymbol = getCurrencySymbol(currencyFilter)
     //get total in dollars
     let total = 0;
     for(const item in cartObject){
@@ -20,20 +11,9 @@ export function Total({cartObject, currency}){
     }
     
     return (
-        
         <h3 className="total">Total{"  "}
-            <span className="total-value">{`${currencySymbol}${(calculatePrice(total, currency))}${currency}`}</span> 
+            <span className="total-value">{`${currencySymbol}${(calculatePrice(total, currencyFilter))}${currencyFilter}`}</span> 
         </h3>
         
     )
-    function calculatePrice(price, currency){
-        switch(currency) {   
-            case 'EUR':
-                return (price * 1).toFixed(2);
-            case 'CAD':
-                return (price * 1.35).toFixed(2);
-            default:
-                return price.toFixed(2);    
-        }
-    }
 };

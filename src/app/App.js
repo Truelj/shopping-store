@@ -46,11 +46,11 @@ function App() {
         <Currency currenciesData={currenciesData} changeCurrency={changeCurrency}></Currency>
       </div>
       <div className='Inventory'>
-        <Inventory inventory={inventory} addItemToCart={addItemToCart} currency={currency}></Inventory>
+        <Inventory inventory={inventory} addItemToCart={addItemToCart} currencyFilter={currency}></Inventory>
       </div>
       <div className='cart-container'>
         {showCart && <Cart cartObject={cartObject} updateQuantityInCart={updateQuantityInCart} ></Cart>}
-        <Total cartObject={cartObject} currency={currency}></Total>
+        <Total cartObject={cartObject} currencyFilter={currency}></Total>
       </div>
       
     </div>

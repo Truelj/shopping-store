@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { calculatePrice, getCurrencySymbol } from "../../utilities/utilities";
 import sampleImage from './img/inventory1.png';
 
-export function Inventory({inventory, addItemToCart, currency }){
+export function Inventory({inventory, addItemToCart, currencyFilter }){
     
     const onClickHandler = (inventoryItem) =>{
         const name = inventoryItem.name;
@@ -13,18 +14,7 @@ export function Inventory({inventory, addItemToCart, currency }){
         
     };
     
-    let currencySymbol;
-    switch (currency){
-        case 'CAD':
-            currencySymbol = '$';
-            break;
-        case 'EUR':
-            currencySymbol = '€';
-            break;
-        default:
-            currencySymbol = '$'
-    }
- 
+    const currencySymbol = getCurrencySymbol(currencyFilter);
    
     return (
             <ul id='inventory-container' >
@@ -33,25 +23,15 @@ export function Inventory({inventory, addItemToCart, currency }){
     )
     function createInventoryItem(inventoryItem){
         const {name, price, img} = inventoryItem;
-        const displayedPrice = calculatePrice(price, currency);
+        const displayedPrice = calculatePrice(price, currencyFilter);
         return (
                 <li key={name} className='inventory-item' >
                     <img src={inventoryItem.img}></img>
                     <h3>{name}</h3>
-                    <h3 className="price" >{`${currencySymbol} ${displayedPrice} ${currency}`}</h3>
+                    <h3 className="price" >{`${currencySymbol} ${displayedPrice} ${currencyFilter}`}</h3>
                     <button className="add-to-cart-button" value={inventoryItem} onClick={()=>(onClickHandler(inventoryItem))} >add to cart</button>
                 </li>
         )
-    }
-    function calculatePrice(price, currency){
-        switch(currency) {   
-            case 'EUR':
-                return (price * 1).toFixed(2);
-            case 'CAD':
-                return (price * 1.35).toFixed(2);
-            default:
-                return price.toFixed(2);    
-        }
     }
         
 }
