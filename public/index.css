@@ -50,15 +50,15 @@ body,
 
 /* Style for Inventory.js */
 #inventory-container {
-  list-style-type: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content:flex-start;
-  gap: 12px;
-  padding: 0px;
+  
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(225px, 1fr) );
+  gap: 12px 12px;
 }
 .inventory-item {
   flex: 1;
+  list-style: none;
 }
 .inventory-item > img {
   border: 1px solid var(--black);
