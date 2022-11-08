@@ -5,7 +5,7 @@ import { Currency } from '../features/Currency/Currency';
 import { Inventory } from '../features/Inventory/Inventory';
 import { Total } from '../features/Total/Total';
 import './App.css';
-import { inventoryData } from '../data';
+import { inventoryData, currenciesData} from '../data';
 
 function App() {  
   const [inventory, setInventory] = useState([]);
@@ -14,14 +14,6 @@ function App() {
 
   //load inventory
   const loadData=()=>{
-    //fetch data resource
-    /*mock data
-    const dataUSD = [
-        { name: 'Hat', img: '', price: 15.99 },
-        { name: 'T-Shirt', img: '', price: 18.99 },
-        { name: 'Hoodie', img: '', price: 49.99 },
-    ]
-    */
     const dataUSD = inventoryData;
     //convert data to align with the current currency
     switch(currency) {   
@@ -100,7 +92,7 @@ function App() {
   return (
     <div className="App" >
       <div className='Currency'>
-        <Currency changeCurrency={changeCurrency}></Currency>
+        <Currency currenciesData={currenciesData} changeCurrency={changeCurrency}></Currency>
       </div>
       <div className='Inventory'>
         <Inventory inventory={inventory} addItemToCart={addItemToCart} currency={currency} updatePriceInCart={updatePriceInCart} ></Inventory>

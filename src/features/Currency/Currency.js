@@ -1,7 +1,8 @@
 import React from "react";
 const currencyData = ['USD', 'EUR', 'CAD'];
 
-export function Currency({changeCurrency}){
+
+export function Currency({currenciesData, changeCurrency}){
     
     const onClickHandler=(currency)=>{
         //change currency
@@ -11,7 +12,7 @@ export function Currency({changeCurrency}){
     return (
         <div id='currency-filters-container'>
             <h3>Choose a currency</h3>
-            {currencyData.map((currency)=>(createCurrencyButton(currency)))}
+            {currenciesData.map((currency)=>(createCurrencyButton(currency)))}
         </div>
         
         
