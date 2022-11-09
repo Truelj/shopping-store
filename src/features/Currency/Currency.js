@@ -1,6 +1,4 @@
 import React from "react";
-const currencyData = ['USD', 'EUR', 'CAD'];
-
 
 export function Currency({currenciesData, changeCurrency}){
     

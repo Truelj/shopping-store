@@ -5,36 +5,27 @@ import { Currency } from '../features/Currency/Currency';
 import { Inventory } from '../features/Inventory/Inventory';
 import './App.css';
 import { inventoryData, currenciesData} from '../data';
+import { addItem, loadData, updateQuantity,changeCurrency } from './store';
 
-function App() {  
-  const [inventory, setInventory] = useState([]);
-  const [cartObject, setCartObject] = useState([]);
-  const [currency, setCurrency] = useState('USD');
-
+function App({state, dispatch}) {  
   //load inventory
   useEffect(()=>{
     console.log("App: loading inventory data....")
-    setInventory(inventoryData);
+    dispatch(loadData(inventoryData));
   },[]);
   
 
   const addItemToCart = (itemObject)=>{
-    setCartObject((prev)=>{
-      return {...prev, [itemObject.name]: {price: itemObject.price, quantity: 1}}
-    });
+    dispatch(addItem(itemObject.name, itemObject.price));
     
   }
   const updateQuantityInCart = (name, quantity)=>{
-    //update cartObject;
-    setCartObject((prev) => {
-      return {...prev, 
-        [name]: {"price": prev[name].price, "quantity": quantity}};
-    })
+    dispatch(updateQuantity(name,quantity));
   };
   
   
   const changeCurrency = (currency) =>{
-    setCurrency(currency);
+    dispatch(changeCurrency(currency));
   }
 
 
@@ -44,11 +35,9 @@ function App() {
         <Currency currenciesData={currenciesData} changeCurrency={changeCurrency}></Currency>
       </div>
       <div className='Inventory'>
-        <Inventory inventory={inventory} addItemToCart={addItemToCart} currencyFilter={currency}></Inventory>
+        <Inventory inventory={state.inventory} addItemToCart={addItemToCart} currencyFilter={state.currency}></Inventory>
       </div>
-   
-        <Cart cartObject={cartObject} updateQuantityInCart={updateQuantityInCart} currencyFilter={currency}></Cart>
-      
+        <Cart cartObject={state.cart} updateQuantityInCart={updateQuantityInCart} currencyFilter={state.currency}></Cart>
       
     </div>
   );

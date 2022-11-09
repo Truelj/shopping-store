@@ -21,7 +21,7 @@ export function Cart({cartObject, updateQuantityInCart,currencyFilter}){
             </ul>
             <h3 className="total">Total{"  "}
             <span className="total-value">{`${currencySymbol}${(calculatePrice(total, currencyFilter))}${currencyFilter}`}</span> 
-        </h3>
+            </h3>
             
         </div>
     );
